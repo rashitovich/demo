@@ -1,0 +1,51 @@
+buildscript {
+    ext {
+        springBootVersion = '1.5.13.RELEASE'
+        camelVersion = '2.21.1'
+        artemisVersion = '2.6.0'
+        activeMqVersion = '5.15.4'
+    }
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'org.springframework.boot'
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+
+dependencies {
+
+
+    // Logging
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-logging'
+
+
+    // Apache Camel
+    compile group: 'org.apache.camel', name: 'camel-core', version: camelVersion
+    compile group: 'org.apache.camel', name: 'camel-spring-boot-starter', version: camelVersion
+    runtimeClasspath group: 'org.apache.camel', name: 'camel-quartz2', version: camelVersion
+    runtimeClasspath group: 'org.apache.camel', name: 'camel-jaxb', version: camelVersion
+    runtimeClasspath group: 'org.apache.camel', name: 'camel-jackson', version: camelVersion
+    runtimeClasspath group: 'org.apache.camel', name: 'camel-ftp', version: camelVersion
+
+
+    // Testing
+    testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test'
+
+
+    // Messaging
+    compile group: 'org.apache.activemq', name: 'artemis-jms-client', version: artemisVersion
+    compile group: 'org.apache.activemq', name: 'activemq-client', version: activeMqVersion
+}
